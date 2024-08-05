@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using TunifyPlatform.Data;
+
 namespace TunifyPlatform
 {
     public class Program
@@ -9,7 +12,16 @@ namespace TunifyPlatform
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            string ConnectsStringVar = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<TunifyDbContext>(optoinsX => optoinsX.UseSqlServer(ConnectsStringVar));
+                                                
+            
+
+
             var app = builder.Build();
+            
+            app.MapControllers();
+            app.MapGet("/", () => "You are on the main page (The Home Page)!");
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
