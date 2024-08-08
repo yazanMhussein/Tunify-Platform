@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using TunifyPlatform.Data;
+using TunifyPlatform.Models;
+using TunifyPlatform.Repositories.interfaces;
+using TunifyPlatform.Repositories.Services;
 
 namespace TunifyPlatform
 {
@@ -10,38 +13,23 @@ namespace TunifyPlatform
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllers();
 
             string ConnectsStringVar = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<TunifyDbContext>(optoinsX => optoinsX.UseSqlServer(ConnectsStringVar));
-                                                
-            
 
+            
+            builder.Services.AddScoped<IUser, UserServices>();
+            builder.Services.AddScoped<IArtist, ArtistServices>();
+            //builder.Services.AddScoped<IPlayList, PlayListServices>();
+            
+            builder.Services.AddTransient<ISong, SongServices>();
+            
 
             var app = builder.Build();
-            
             app.MapControllers();
+ 
             app.MapGet("/", () => "You are on the main page (The Home Page)!");
-
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-
             app.Run();
         }
     }
