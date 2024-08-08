@@ -21,7 +21,7 @@ namespace TunifyPlatform
             
             builder.Services.AddScoped<IUser, UserServices>();
             builder.Services.AddScoped<IArtist, ArtistServices>();
-            //builder.Services.AddScoped<IPlayList, PlayListServices>();
+            builder.Services.AddScoped<IPlayList, PlayListServices>();
             
             builder.Services.AddTransient<ISong, SongServices>();
             
