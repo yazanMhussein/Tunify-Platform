@@ -61,6 +61,30 @@ Attributes: PlaylistSongID, PlaylistID, SongID
 Relationships:
 A PlaylistSong belongs to one Playlist.
 A PlaylistSong belongs to one Song.
+
+# Repository Design Pattern
+
+ the Repository Design Pattern that mediates data to and from the database using collections of objects. 
+ It provides a more object-oriented way to get access and manipulate data. A need was felt for abstraction 
+ from the data access layer to the business logic layer.
+
+# Benefits of the Repository Design Pattern
+
+Separation of Concerns: 
+The Repository Design Pattern helps in cleaning the code base and makes it maintainable, separating data access logic from business logic.
+Testability:
+This facilitates mocking repositories for unit testing, hence improving testability.
+Flexibility:
+This makes it easy to replace the sources of data without changing the business logic. For example, you can change from a SQL database to a NoSQL database with very few changes.
+It has centralized data access logic, whereby every data access logic is kept in one place. This makes maintenance and update of the same easy to do.
+Reusability:
+It enables sharing of common data access code across different parts of the application.
+
+# Implementation in Tunify 
+
+In the Tunify Web App responsible for data access to all entities, which involves Users, Artists, Albums, Songs, Playlists, and Subscriptions. 
+Each repository provides methods to realize CRUD operations and abstracts underlying database interactions.
+
 # Getting Started
 To get started with Tunify, follow these steps:
 
