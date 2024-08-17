@@ -64,7 +64,7 @@ A PlaylistSong belongs to one Song.
 
 # Repository Design Pattern
 
- the Repository Design Pattern that mediates data to and from the database using collections of objects. 
+ The Repository Design Pattern that mediates data to and from the database using collections of objects. 
  It provides a more object-oriented way to get access and manipulate data. A need was felt for abstraction 
  from the data access layer to the business logic layer.
 
