@@ -11,7 +11,7 @@ namespace TunifyPlatform.Repositories.Services
 
         public ArtistServices(TunifyDbContext context)
         {
-            _context = context; 
+            _context = context;
         }
 
         public async Task<Artist> CreateArtists(Artist artist)
@@ -44,12 +44,22 @@ namespace TunifyPlatform.Repositories.Services
             _context.Artists.Remove(getArtist);
             await _context.SaveChangesAsync();
         }
+        public async Task<ICollection<Song>> GetSongsForArtist(int artistId)
+        {
+           var artist = await _context.Artists.Include(a => a.Songs).FirstOrDefaultAsync(a => a.ArtistID == artistId);
+            if (artist == null)
+            {
+                throw new Exception("Artist not found");
+            }
+            return artist.Songs;
+        }
+
         public async Task<bool> AddSongToArtist(int artistId, int songId)
         {
-            var artist = await _context.Artists.Include(a => a.Songs).FirstOrDefaultAsync(a => a.ArtistId == artistId);
+            var artist = await _context.Artists.Include(a => a.Songs).FirstOrDefaultAsync(a => a.ArtistID == artistId);
             var song = await _context.Songs.FindAsync(songId);
 
-            if (artist == null || song == null) {   return false;}
+            if (artist == null || song == null) { return false; }
 
             // Add the song to the artist's collection of songs
             artist.Songs.Add(song);
@@ -57,4 +67,4 @@ namespace TunifyPlatform.Repositories.Services
             return true;
         }
     }
- 
+}
