@@ -8,7 +8,9 @@ namespace TunifyPlatform.Repositories.interfaces
         Task<List<PlayList>> GetAllPlayList();
         Task<PlayList> GetPlayListById(int playListId);
         Task<PlayList> UpdatePlayList(int id, PlayList playList);
-        Task<bool<PlayList>> AddSongToPlaylist(int playListId, int songId); 
+        Task<IEnumerable<Song>> GetSongsForPlaylist(int playlistId);
+        Task<bool> AddSongToPlaylist(int playListId, int songId); 
         Task DeletePlayList(int id);
+        
     }
 } 
