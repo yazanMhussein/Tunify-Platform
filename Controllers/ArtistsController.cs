@@ -36,6 +36,13 @@ namespace TunifyPlatform.Controllers
         {
           return await _artist.GetArtistsById(id);
         }
+        // GET: api/Artists/{artistId}/Songs
+        [HttpGet("{artistId}/Songs")]
+        public async Task<ActionResult<IEnumerable<Song>>> GetSongsForArtist(int artistId)
+        {
+            var songs = await _artist.GetSongsForArtist(artistId);
+            return Ok(songs);
+        }
 
         // PUT: api/Artists/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -53,6 +60,16 @@ namespace TunifyPlatform.Controllers
         {
           var NewArtist = await _artist.CreateArtists(artist);
             return Ok(NewArtist);
+        }
+        // POST: api/Artists/{artistId}/Songs/{songId}
+        [HttpPost("artists/{artistId}/songs/{songId}")]
+        public async Task<IActionResult> AddSongToArtist(int artistId, int songId)
+        {
+            var result = await _artist.AddSongToArtist(artistId, songId);
+            if (result)
+                return Ok();
+            else
+                return BadRequest("Failed to add the song to the artist.");
         }
 
         // DELETE: api/Artists/5

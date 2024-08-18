@@ -27,7 +27,34 @@ namespace TunifyPlatform.Data
             base.OnModelCreating(modelBuilder);
 
             // this is where i have im two group(PlayList, Song) in one group(PlayListSong)
+            //  Configures a composite primary key for the `PlaylistSong` junction table.
             modelBuilder.Entity<PlayListSong>().HasKey(pk => new { pk.PlayListID, pk.SongID });
+            
+            
+            // Many to Many Relationship between Playlist and Song Model Entity
+            modelBuilder.Entity<PlaylistsSong>()
+                .HasOne(ps => ps.PlayList) 
+                .WithMany(ps => ps.PlayListSong)
+                .HasForeignKey(ps => ps.PlayListID);
+
+            modelBuilder.Entity<PlaylistsSong)()
+                .HasOne(ps => ps.Song)
+                .WithMany(ps => ps.PlayListSong)
+                .HasForeignKey(ps => ps.SongID);
+
+            // One to Many Relationship between Artist and Song
+            modelBuilder.Entity<Songs>()
+                .HasOne(s => s.Artist) // specifies that each `Song` has one `Artist
+                .WithMany(s => ps.Songs)// specifies that each `Artist` can have many `Songs
+                .HasForeignKey(s => s.ArtistID); // defines the foreign key in the `Song` table
+
+            // One to Many Relationship between Album and Song
+            modelBuilder.Entity<Songs>()
+                .HasOne(s => s.Album) // specifies that each `Song` has one `Album
+                .WithMany(a => a.Songs) // specifies that each `Album` can have many `Songs
+                .HasForeignKey(s => s.AlbumID); // defines the foreign key in the `Song` table
+
+
             // key Entity
             modelBuilder.Entity<User>().HasKey(pk => pk.UserID);
             modelBuilder.Entity<Song>().HasKey(pk => pk.SongID);
