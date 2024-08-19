@@ -25,6 +25,7 @@ namespace TunifyPlatform
             
             builder.Services.AddScoped<ISong, SongServices>();
 
+
             builder.Services.AddSwaggerGen(options =>
                 {
                     options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()

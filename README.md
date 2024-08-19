@@ -81,6 +81,45 @@ It has centralized data access logic, whereby every data access logic is kept in
 Reusability:
 It enables sharing of common data access code across different parts of the application.
 
+## New Navigation and Routing Functionalities
+
+In this update, we have implemented new navigation and routing functionalities within the Tunify Platform:
+
+### Playlist and Song Relationship
+
+- **Navigation**: Users can now navigate between playlists and the songs they contain. This functionality allows users to view details of playlists and manage the songs within them.
+- **Routing**: New API endpoints and routing logic have been added to support these functionalities. Users can view a playlist, add new songs, or remove existing ones.
+
+### Artist and Song Relationship
+
+- **Navigation**: Users can now navigate between artists and their songs. This feature allows users to view an artist's profile and manage their songs.
+- **Routing**: Additional API endpoints and routing logic support this feature, enabling users to view an artist's details and manage their songs.
+
+For detailed information on the new routes and how to use these features, refer to the API documentation or the corresponding sections in the application.
+
+## Addition of Swagger UI
+
+In this update, we have integrated Swagger UI into the Tunify Platform to provide comprehensive API documentation and testing capabilities:
+
+### Swagger Setup
+
+- **Integration**: Swagger UI has been added using the Swashbuckle.AspNetCore package. This tool automatically generates interactive API documentation.
+- **Configuration**: The Swagger services are configured in the `Program.cs` file using `AddSwaggerGen`, and the Swagger middleware is added with `UseSwagger` and `UseSwaggerUI`.
+
+### Accessing and Using Swagger UI
+
+1. **Access Swagger UI**:
+   - Launch the application.
+   - Navigate to the root URL or the `/swagger` endpoint in your web browser to access the Swagger UI.
+
+2. **Using Swagger UI**:
+   - **Explore Endpoints**: Use the Swagger UI to view all available API endpoints. Each endpoint is documented with details on the request and response formats.
+   - **Testing API**: You can interact with the API directly from Swagger UI by sending requests and viewing responses.
+   - **Authentication**: If your API requires authentication, Swagger UI supports configuring the necessary credentials.
+
+For more details on using Swagger UI or specific examples, refer to the interactive documentation provided.
+
+
 # Implementation in Tunify 
 
 In the Tunify Web App responsible for data access to all entities, which involves Users, Artists, Albums, Songs, Playlists, and Subscriptions. 

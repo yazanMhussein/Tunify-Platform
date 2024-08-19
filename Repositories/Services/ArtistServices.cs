@@ -46,7 +46,7 @@ namespace TunifyPlatform.Repositories.Services
         }
         public async Task<ICollection<Song>> GetSongsForArtist(int artistId)
         {
-           var artist = await _context.Artists.Include(a => a.Songs).FirstOrDefaultAsync(a => a.ArtistID == artistId);
+            var artist = await _context.Artists.Include(a => a.Songs).FirstOrDefaultAsync(a => a.ArtistID == artistId);
             if (artist == null)
             {
                 throw new Exception("Artist not found");

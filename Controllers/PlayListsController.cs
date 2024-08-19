@@ -36,6 +36,7 @@ namespace TunifyPlatform.Controllers
         {
           return await _playlist.GetPlayListById(id);
         }
+
         // GET: api/PlayLists/{playlistId}/Songs
         [HttpGet("{playlistId}/Songs")]
         public async Task<ActionResult<IEnumerable<Song>>> GetSongsForPlaylist(int playlistId)
@@ -56,7 +57,7 @@ namespace TunifyPlatform.Controllers
 
         // POST: api/PlayLists/{playlistId}/songs/{songId}
         [HttpPost("playlists/{playlistId}/songs/{songId}")]
-        public async Task<IActionResult> AddSongToPlaylist(int playListId, int songId) 
+        public async Task<IActionResult> AddSongToPlaylist(int playListId, int songId)
         {
             var result = await _playlist.AddSongToPlaylist(playListId, songId);
             if (result)
@@ -64,6 +65,7 @@ namespace TunifyPlatform.Controllers
             else
                 return BadRequest("Failed to add the song to the playlist.");
         }
+
 
         // POST: api/PlayLists
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

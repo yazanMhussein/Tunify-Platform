@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TunifyPlatform.Data;
 using TunifyPlatform.Models;
 using TunifyPlatform.Repositories.interfaces;
@@ -47,16 +48,16 @@ namespace TunifyPlatform.Repositories.Services
             if (playlist == null) throw new Exception("Playlist not found");
             return playlist.PlayListSong.Select(ps => ps.Song);
         }
-        public async Task<bool> AddSongToPlaylist(int playListId, int songId) 
+        public async Task<bool> AddSongToPlaylist(int playListId, int songId)
         {
             var playlist = await _context.Playlists.FindAsync(playListId);
             var song = await _context.Songs.FindAsync(songId);
 
             if (playlist == null || song == null) { return false; }
-            
-                playlist.PlayListSong.Add(new PlayListSong { PlayListID = playListId, SongID = songId });
-                await _context.SaveChangesAsync();
-                return true;
+
+            playlist.PlayListSong.Add(new PlayListSong { PlayListID = playListId, SongID = songId });
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

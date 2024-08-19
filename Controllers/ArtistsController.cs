@@ -36,6 +36,8 @@ namespace TunifyPlatform.Controllers
         {
           return await _artist.GetArtistsById(id);
         }
+
+
         // GET: api/Artists/{artistId}/Songs
         [HttpGet("{artistId}/Songs")]
         public async Task<ActionResult<IEnumerable<Song>>> GetSongsForArtist(int artistId)
@@ -61,6 +63,7 @@ namespace TunifyPlatform.Controllers
           var NewArtist = await _artist.CreateArtists(artist);
             return Ok(NewArtist);
         }
+
         // POST: api/Artists/{artistId}/Songs/{songId}
         [HttpPost("artists/{artistId}/songs/{songId}")]
         public async Task<IActionResult> AddSongToArtist(int artistId, int songId)
