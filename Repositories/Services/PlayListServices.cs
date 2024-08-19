@@ -41,5 +41,22 @@ namespace TunifyPlatform.Repositories.Services
             _context.Playlists.Remove(getPlayList);
             await _context.SaveChangesAsync();
         }
+        public async Task<IEnumerable<Song>> GetSongsForPlaylist(int playlistId)
+        {
+            var playlist = await _context.Playlists.Include(x => x.PlayListSong).ThenInclude(p => p.Song).FirstOrDefaultAsync(p => p.PlayListID == playlistId);
+            if (playlist == null) throw new Exception("Playlist not found");
+            return playlist.PlayListSong.Select(ps => ps.Song);
+        }
+        public async Task<bool> AddSongToPlaylist(int playListId, int songId) 
+        {
+            var playlist = await _context.Playlists.FindAsync(playListId);
+            var song = await _context.Songs.FindAsync(songId);
+
+            if (playlist == null || song == null) { return false; }
+            
+                playlist.PlayListSong.Add(new PlayListSong { PlayListID = playListId, SongID = songId });
+                await _context.SaveChangesAsync();
+                return true;
+        }
     }
 }

@@ -27,7 +27,34 @@ namespace TunifyPlatform.Data
             base.OnModelCreating(modelBuilder);
 
             // this is where i have im two group(PlayList, Song) in one group(PlayListSong)
+            //  Configures a composite primary key for the `PlaylistSong` junction table.
             modelBuilder.Entity<PlayListSong>().HasKey(pk => new { pk.PlayListID, pk.SongID });
+            
+            
+            // Many to Many Relationship between Playlist and Song Model Entity
+            modelBuilder.Entity<PlayListSong>()
+                .HasOne(ps => ps.PlayList) 
+                .WithMany(ps => ps.PlayListSong)
+                .HasForeignKey(ps => ps.PlayListID);
+
+            modelBuilder.Entity<PlayListSong>()
+                .HasOne(ps => ps.Song)
+                .WithMany(ps => ps.PlayListSong)
+                .HasForeignKey(ps => ps.SongID);
+
+            // One to Many Relationship between Artist and Song
+            modelBuilder.Entity<Song>()
+                .HasOne(s => s.Artist) // specifies that each `Song` has one `Artist
+                .WithMany(ps => ps.Songs) // specifies that each `Artist` can have many `Songs
+                .HasForeignKey(s => s.ArtistID); // defines the foreign key in the `Song` table
+
+            // One to Many Relationship between Album and Song
+            modelBuilder.Entity<Song>()
+                .HasOne(s => s.Album) // specifies that each `Song` has one `Album
+                .WithMany(a => a.Songs) // specifies that each `Album` can have many `Songs
+                .HasForeignKey(s => s.AlbumID); // defines the foreign key in the `Song` table
+
+
             // key Entity
             modelBuilder.Entity<User>().HasKey(pk => pk.UserID);
             modelBuilder.Entity<Song>().HasKey(pk => pk.SongID);
@@ -44,9 +71,9 @@ namespace TunifyPlatform.Data
           );
 
             modelBuilder.Entity<Song>().HasData(
-                new Song { SongID = 1, Title = "black litte don't give up to soon son", Durtion = new TimeSpan(0, 3, 45), Genre = "Pop", AlbumID = 1, ArtistID = 1 },
-                new Song { SongID = 2, Title = "gold digger: why is everything about! yeah ", Durtion = new TimeSpan(0, 4, 20), Genre = "r&b", AlbumID = 2, ArtistID = 2 },
-                new Song { SongID = 3, Title = "coding hard ", Durtion = new TimeSpan(0, 8, 10), Genre = "r&b", AlbumID = 3, ArtistID = 3 }
+                new Song { SongID = 1, Title = "black litte don't give up to soon son", Duration = new TimeSpan(0, 3, 45), Genre = "Pop", AlbumID = 1, ArtistID = 1 },
+                new Song { SongID = 2, Title = "gold digger: why is everything about! yeah ", Duration = new TimeSpan(0, 4, 20), Genre = "r&b", AlbumID = 2, ArtistID = 2 },
+                new Song { SongID = 3, Title = "coding hard ", Duration = new TimeSpan(0, 8, 10), Genre = "r&b", AlbumID = 3, ArtistID = 3 }
             );
 
             modelBuilder.Entity<PlayList>().HasData(
@@ -76,3 +103,4 @@ namespace TunifyPlatform.Data
         Migration Migration { get; set; }
     }
 }
+

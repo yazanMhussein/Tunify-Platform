@@ -57,7 +57,8 @@ A Playlist belongs to one User.
 A Playlist can have multiple PlaylistSongs.
 PlaylistSong
 
-Attributes: PlaylistSongID, PlaylistID, SongID
+Attributes: 
+PlaylistSongID, PlaylistID, SongID
 Relationships:
 A PlaylistSong belongs to one Playlist.
 A PlaylistSong belongs to one Song.

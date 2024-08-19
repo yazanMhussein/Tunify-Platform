@@ -36,6 +36,13 @@ namespace TunifyPlatform.Controllers
         {
           return await _playlist.GetPlayListById(id);
         }
+        // GET: api/PlayLists/{playlistId}/Songs
+        [HttpGet("{playlistId}/Songs")]
+        public async Task<ActionResult<IEnumerable<Song>>> GetSongsForPlaylist(int playlistId)
+        {
+            var songs = await _playlist.GetSongsForPlaylist(playlistId);
+            return Ok(songs);
+        }
 
         // PUT: api/PlayLists/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -44,6 +51,18 @@ namespace TunifyPlatform.Controllers
         {
             var updatePlayList = await _playlist.UpdatePlayList(id, playList);
             return Ok(updatePlayList);
+        }
+
+
+        // POST: api/PlayLists/{playlistId}/songs/{songId}
+        [HttpPost("playlists/{playlistId}/songs/{songId}")]
+        public async Task<IActionResult> AddSongToPlaylist(int playListId, int songId) 
+        {
+            var result = await _playlist.AddSongToPlaylist(playListId, songId);
+            if (result)
+                return Ok();
+            else
+                return BadRequest("Failed to add the song to the playlist.");
         }
 
         // POST: api/PlayLists
