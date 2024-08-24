@@ -63,7 +63,7 @@ namespace TunifyPlatform.Controllers
           var NewArtist = await _artist.CreateArtists(artist);
             return Ok(NewArtist);
         }
-
+         
         // POST: api/Artists/{artistId}/Songs/{songId}
         [HttpPost("artists/{artistId}/songs/{songId}")]
         public async Task<IActionResult> AddSongToArtist(int artistId, int songId)
