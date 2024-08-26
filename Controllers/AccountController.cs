@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -50,6 +51,13 @@ namespace TunifyPlatform.Controllers
             }
             return account;
         }
+        [Authorize(Roles = "Admin")]
+        [HttpGet("Profile")]
+        public async Task<ActionResult<AccountDto>> Profile()
+        {
+            return await _account.userProfile(User);
+        }
+
         [HttpDelete("Logout")]
         public async Task<IActionResult> Logout()
         {
