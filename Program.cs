@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TunifyPlatform.Data;
 using TunifyPlatform.Models;
@@ -18,13 +19,15 @@ namespace TunifyPlatform
             string ConnectsStringVar = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<TunifyDbContext>(optoinsX => optoinsX.UseSqlServer(ConnectsStringVar));
 
-            
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+                   .AddEntityFrameworkStores<TunifyDbContext>();
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<IUser, UserServices>();
             builder.Services.AddScoped<IArtist, ArtistServices>();
             builder.Services.AddScoped<IPlayList, PlayListServices>();
             
             builder.Services.AddScoped<ISong, SongServices>();
-
+            builder.Services.AddScoped<IAccount, IdentityAccountService>();
 
             builder.Services.AddSwaggerGen(options =>
                 {
@@ -37,6 +40,8 @@ namespace TunifyPlatform
 
                 });
             var app = builder.Build();
+
+            app.UseAuthentication();
 
             app.UseSwagger
                 (
@@ -52,6 +57,8 @@ namespace TunifyPlatform
                         options.SwaggerEndpoint("/api/v1/swagger.json", "Tunify API v1");
                         options.RoutePrefix = "";
                     });
+            
+
 
             app.MapControllers();
             app.MapGet("/newpages", () => "Hello World! from the new page");
