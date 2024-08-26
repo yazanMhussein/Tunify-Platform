@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TunifyPlatform", "TunifyPlatform.csproj", "{E981D69E-FE01-458E-A943-3F9BEB7C6316}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XTunifyPlatform", "..\XTunifyPlatform\XTunifyPlatform.csproj", "{0FA0E06C-168E-4124-A9C9-483EAF2E76A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XTunifyPlatform", "..\XTunifyPlatform\XTunifyPlatform.csproj", "{0FA0E06C-168E-4124-A9C9-483EAF2E76A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Identity.Client;
 using TunifyPlatform.Models;
@@ -99,6 +100,19 @@ namespace TunifyPlatform.Data
                 new Album { AlbumID = 2, Album_Name = "Classic Collection", Release_Date = new DateTime(2021, 2, 15), ArtistID = 2 },
                 new Album { AlbumID = 3, Album_Name = "coding hard", Release_Date = new DateTime(2024, 8, 5), ArtistID = 3 }
             );
+            seedRoles(modelBuilder, "Admin");
+            seedRoles(modelBuilder, "User");
+        }
+        private void seedRoles(ModelBuilder modelBuilder, string roleName, params string[] permission)
+        {
+            var role = new IdentityRole
+            {
+                Id = roleName.ToLower(),
+                Name = roleName,
+                NormalizedName = roleName.ToUpper(),
+                ConcurrencyStamp = Guid.Empty.ToString(),
+            };
+            modelBuilder.Entity<IdentityRole>().HasData(role);
         }
         Migration Migration { get; set; }
     }
